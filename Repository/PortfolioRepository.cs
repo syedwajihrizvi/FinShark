@@ -11,8 +11,8 @@ namespace FinShark.Repository
 {
     public class PortfolioRepository : IPortfolioRepository
     {
-        private readonly ApplicationDBContext _context;
-        public PortfolioRepository(ApplicationDBContext context)
+        private readonly ApplicationDbContext _context;
+        public PortfolioRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,21 +23,21 @@ namespace FinShark.Repository
             return stocks!;
         }
 
-        public async Task<Portfolio> CreatePortfolioAsync(AppUser appUser, Stock stock)
+        public async Task<int> CreatePortfolioAsync(AppUser user, Stock stock)
         {
-            var porfolio = new Portfolio
+            var portfolio = new Portfolio
             {
-                AppUserId = appUser.Id,
+                AppUserId = user.Id,
                 StockId = stock.Id,
             };
-            await _context.AddAsync(porfolio);
-            await _context.SaveChangesAsync();
-            return porfolio;
+            await _context.AddAsync(portfolio);
+            return await _context.SaveChangesAsync();
+           
         }
 
-        public async Task<Portfolio?> DeletePortfolioAsync(AppUser appUser, Stock stock)
+        public async Task<Portfolio?> DeletePortfolioAsync(AppUser user, Stock stock)
         {
-            var portfolio = await _context.Portfolios.Where(p => p.AppUserId == appUser.Id).FirstOrDefaultAsync();
+            var portfolio = await _context.Portfolios.Where(p => p.AppUserId == user.Id).FirstOrDefaultAsync();
             if (portfolio == null)
                 return null;
             _context.Remove(portfolio);

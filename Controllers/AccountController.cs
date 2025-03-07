@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FinShark.DTOs.Account;
-using FinShark.DTOs.Register;
 using FinShark.Interfaces;
 using FinShark.Mappers;
 using FinShark.Models;

@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using FinShark.Interfaces;
 using FinShark.Models;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FinShark.Services
@@ -25,8 +20,8 @@ namespace FinShark.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, appUser.Email!),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.GivenName, appUser.UserName!)
+                new(JwtRegisteredClaimNames.Email, appUser.Email!),
+                new(JwtRegisteredClaimNames.GivenName, appUser.UserName!)
             };
 
             // Tyoe of Encryption we want
@@ -39,10 +34,10 @@ namespace FinShark.Services
                 Issuer = _config["JWT:Issuer"],
                 Audience = _config["JWT:Audience"]
             };
-            var tokenHander = new JwtSecurityTokenHandler();
-            var token = tokenHander.CreateToken(tokenDescriptor);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHander.WriteToken(token);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

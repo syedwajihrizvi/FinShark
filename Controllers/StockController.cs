@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using FinShark.Data;
 using FinShark.DTOs.Stock;
 using FinShark.Helpers;
 using FinShark.Interfaces;
 using FinShark.Mappers;
-using FinShark.Models;
-using FinShark.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,7 +67,7 @@ namespace FinShark.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var stock = await _stockRepository.DeleteAsync(id); ;
+            var stock = await _stockRepository.DeleteAsync(id);
             if (stock == null)
                 return NotFound();
             return NoContent();

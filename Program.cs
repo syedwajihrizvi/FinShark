@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "FinShark", Version = "v1" });
 });
-builder.Services.AddDbContext<ApplicationDBContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(9, 0, 1)));
 });
@@ -35,7 +35,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
 })
-.AddEntityFrameworkStores<ApplicationDBContext>();
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -79,4 +79,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

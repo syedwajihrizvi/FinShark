@@ -13,17 +13,17 @@ namespace FinShark.Repository
 {
     public class CommentRepository : ICommentRepository
     {
-        private readonly ApplicationDBContext _context;
-        public CommentRepository(ApplicationDBContext context)
+        private readonly ApplicationDbContext _context;
+        public CommentRepository(ApplicationDbContext context)
         {
             _context = context;
 
         }
 
-        public async Task<Comment> CreateAsync(CreateCommentRequestDto commentDto, AppUser appUser)
+        public async Task<Comment> CreateAsync(CreateCommentRequestDto comment, AppUser appUser)
         {
 
-            var commentModel = commentDto.ToComment(appUser);
+            var commentModel = comment.ToComment(appUser);
             await _context.AddAsync(commentModel);
             await _context.SaveChangesAsync();
             return commentModel;

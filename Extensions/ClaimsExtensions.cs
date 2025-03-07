@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace FinShark.Extensions
 {
@@ -12,7 +8,7 @@ namespace FinShark.Extensions
         {
             var claim = user.FindFirst(ClaimTypes.GivenName);
             Console.WriteLine(claim);
-            return claim!.Value;
+            return claim?.Value;
         }
     }
 }

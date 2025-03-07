@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinShark.Migrations
 {
-    [DbContext(typeof(ApplicationDBContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250302223858_init")]
     partial class init
     {

@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.Entity;
 using FinShark.Interfaces;
 using FinShark.Mappers;
 using FinShark.Models;
 using Microsoft.AspNetCore.Mvc;
-using ZstdSharp.Unsafe;
 using FinShark.DTOs.Comment;
 using Microsoft.AspNetCore.Identity;
 using FinShark.Extensions;
@@ -58,7 +52,7 @@ namespace FinShark.Controllers
                 return BadRequest(ModelState);
             var stockId = commentRequestDto.StockId;
             var exists = await _stockRepository.StockExists(stockId);
-            if (exists == false)
+            if (!exists)
                 return BadRequest($"Stock with {stockId} does not exist.");
             var username = User.GetUsername();
             if (username == null)
