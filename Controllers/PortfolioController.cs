@@ -1,26 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using FinShark.Extensions;
 using FinShark.Interfaces;
 using FinShark.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ZstdSharp.Unsafe;
 
 namespace FinShark.Controllers
 {
     [Route("api/portfolio")]
     [ApiController]
-
     public class PortfolioController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IStockRepository _stockRepository;
         private readonly IPortfolioRepository _portfolioRepository;
+
         public PortfolioController(
             UserManager<AppUser> userManager,
             IStockRepository stockRepository,
@@ -59,11 +53,11 @@ namespace FinShark.Controllers
             if (user == null || stock == null)
                 return BadRequest("Provided stock or user was not found");
             var userPortfolio = await _portfolioRepository.GetUserPortfolioAsync(user.Id);
-            bool exists = userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower());
+            var exists = userPortfolio.Any(s => s.Symbol.ToLower() == symbol.ToLower());
             if (exists)
                 return BadRequest("Already have a stock with this symbol");
             var createdPortfolio = await _portfolioRepository.CreatePortfolioAsync(user, stock);
-            if (createdPortfolio == null)
+            if (createdPortfolio < 1)
                 return BadRequest("Failed to create request");
             return Created();
         }
@@ -84,7 +78,6 @@ namespace FinShark.Controllers
             if (deleted == null)
                 return StatusCode(500, "Delete failed");
             return NoContent();
-
         }
     }
 }

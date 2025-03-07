@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FinShark.DTOs.Stock;
 using FinShark.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FinShark.Mappers
 {

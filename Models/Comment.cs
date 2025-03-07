@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FinShark.Models
 {
@@ -16,7 +12,7 @@ namespace FinShark.Models
         public int? StockId { get; set; }
         // Navigation Property is the StockId and lets us access Stock
         public Stock? Stock { get; set; }
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public string AppUserId { get; set; }=string.Empty;
+        public AppUser AppUser { get; set; }=null!;
     }
 }
